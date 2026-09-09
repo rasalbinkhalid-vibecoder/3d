@@ -2,20 +2,28 @@ export type Lang = 'en' | 'ar'
 
 interface Chapter {
   id: string
-  kicker: string
   title: string
   title2?: string
   copy: string
   tags?: string[]
   cta?: string
   cta2?: string
+  /** short vertical caption stacked in the left margin */
+  sideLabel: string[]
+  /** handwritten accent line in the right margin */
+  script: string
+  /** two-line circular stamp badge */
+  badge: { top: string; bottom: string }
+  /** label shown in the scroll hint while this chapter is active */
+  scrollLabel: string
 }
 
 export interface AppContent {
   dir: 'ltr' | 'rtl'
   brandName: string
-  nav: { menu: string; story: string; order: string }
-  hero: { eyebrow: string; title: string; sub: string; scroll: string }
+  brandTagline: string
+  nav: { menu: string; story: string; locations: string; order: string }
+  hero: { title: string; sub: string; scroll: string }
   chapters: Chapter[]
   menu: {
     kicker: string
@@ -31,9 +39,9 @@ export const content: Record<Lang, AppContent> = {
   en: {
     dir: 'ltr',
     brandName: 'LIKE',
-    nav: { menu: 'Menu', story: 'Story', order: 'Order Now' },
+    brandTagline: 'LOVE IT KRISPY ER!',
+    nav: { menu: 'Menu', story: 'Story', locations: 'Locations', order: 'Order Now' },
     hero: {
-      eyebrow: 'THE LIKE EXPERIENCE',
       title: 'LOVE IT KRISPY-ER!',
       sub: 'Scroll to discover how crispy becomes irresistible.',
       scroll: 'SCROLL TO COOK',
@@ -41,43 +49,61 @@ export const content: Record<Lang, AppContent> = {
     chapters: [
       {
         id: 'chicken',
-        kicker: 'CHAPTER 01',
         title: 'IT STARTS FRESH.',
         copy: 'Great crunch begins with the right chicken.',
+        sideLabel: ['FRESH', 'CHICKEN', 'BRINGS', 'BETTER FLAVOR'],
+        script: 'Same Care. Crispier Moments.',
+        badge: { top: 'REAL INGREDIENTS', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO EXPLORE',
       },
       {
         id: 'marinade',
-        kicker: 'CHAPTER 02',
         title: 'SOAKED IN FLAVOR.',
         copy: 'Every bite gets seasoned from the inside out.',
         tags: ['PAPRIKA', 'GARLIC', 'BLACK PEPPER', 'HERBS'],
+        sideLabel: ['SIGNATURE', 'SPICES', 'BOLDER', 'BITES'],
+        script: 'Same Love. Crispier Reality.',
+        badge: { top: 'REAL CHICKEN', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO DISCOVER',
       },
       {
         id: 'coating',
-        kicker: 'CHAPTER 03',
         title: 'COATED FOR THE CRUNCH.',
         copy: 'Every ridge matters.',
+        sideLabel: ['SEASONED', 'FLOUR TURNS', 'GOOD', 'INTO GREAT'],
+        script: 'Same Love. Crispier Reality.',
+        badge: { top: 'REAL CHICKEN', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO CONTINUE',
       },
       {
         id: 'fryer',
-        kicker: 'CHAPTER 04',
         title: 'THIS IS WHERE THE MAGIC HAPPENS.',
         copy: 'HOT. GOLDEN. KRISPY.',
+        sideLabel: ['REAL CHICKEN', 'GOES', 'THROUGH', 'GREAT THINGS'],
+        script: 'Same Love. Crispier Reality.',
+        badge: { top: 'REAL CHICKEN', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO CONTINUE',
       },
       {
         id: 'reveal',
-        kicker: 'CHAPTER 05',
         title: 'HEAR THAT?',
         title2: "THAT'S LIKE.",
         copy: 'Crackling crust. Steam escaping. Juice inside.',
+        sideLabel: ['CRUNCH', 'YOU CAN', 'ACTUALLY', 'HEAR'],
+        script: 'Same Love. Crispier Reality.',
+        badge: { top: 'REAL CHICKEN', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO CONTINUE',
       },
       {
         id: 'drop',
-        kicker: 'CHAPTER 06',
         title: 'MADE TO BE KRISPY.',
-        copy: 'Order your LIKE meal, fresh from the fryer to your door.',
+        copy: 'Real Chicken. Happier People.',
         cta: 'ORDER YOUR LIKE',
         cta2: 'EXPLORE THE MENU',
+        sideLabel: ['CHICKEN', 'BRINGS', 'PEOPLE', 'CLOSER'],
+        script: 'Same Love. Crispier Reality.',
+        badge: { top: 'REAL CHICKEN', bottom: 'HAPPIER PEOPLE' },
+        scrollLabel: 'SCROLL TO THE MENU',
       },
     ],
     menu: {
@@ -104,9 +130,9 @@ export const content: Record<Lang, AppContent> = {
   ar: {
     dir: 'rtl',
     brandName: 'لايك',
-    nav: { menu: 'القائمة', story: 'القصة', order: 'اطلب الآن' },
+    brandTagline: 'أحبها أكثر قرمشة!',
+    nav: { menu: 'القائمة', story: 'القصة', locations: 'الفروع', order: 'اطلب الآن' },
     hero: {
-      eyebrow: 'تجربة لايك',
       title: 'أحبها أكثر قرمشة!',
       sub: 'مرّر لتكتشف كيف يتحوّل القرمش إلى إدمان.',
       scroll: 'مرّر لتبدأ الطهي',
@@ -114,43 +140,61 @@ export const content: Record<Lang, AppContent> = {
     chapters: [
       {
         id: 'chicken',
-        kicker: 'الفصل ٠١',
         title: 'تبدأ طازجة.',
         copy: 'القرمشة الحقيقية تبدأ بالدجاج المناسب.',
+        sideLabel: ['دجاج', 'طازج', 'لنكهة', 'أفضل'],
+        script: 'نفس الاهتمام. لحظات أقرمش.',
+        badge: { top: 'مكونات حقيقية', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر لتكتشف',
       },
       {
         id: 'marinade',
-        kicker: 'الفصل ٠٢',
         title: 'منقوعة بالنكهة.',
         copy: 'كل قضمة متبّلة من الداخل إلى الخارج.',
         tags: ['بابريكا', 'ثوم', 'فلفل أسود', 'أعشاب'],
+        sideLabel: ['بهارات', 'مميزة', 'قضمات', 'أجرأ'],
+        script: 'نفس الحب. واقع أقرمش.',
+        badge: { top: 'دجاج حقيقي', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر للمزيد',
       },
       {
         id: 'coating',
-        kicker: 'الفصل ٠٣',
         title: 'مغطاة من أجل القرمشة.',
         copy: 'كل تفصيلة مهمة.',
+        sideLabel: ['دقيق', 'متبّل', 'يحوّل الجيد', 'إلى رائع'],
+        script: 'نفس الحب. واقع أقرمش.',
+        badge: { top: 'دجاج حقيقي', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر للمتابعة',
       },
       {
         id: 'fryer',
-        kicker: 'الفصل ٠٤',
         title: 'هنا يحدث السحر.',
         copy: 'ساخنة. ذهبية. قرمشة.',
+        sideLabel: ['دجاج حقيقي', 'يمر', 'بأشياء', 'عظيمة'],
+        script: 'نفس الحب. واقع أقرمش.',
+        badge: { top: 'دجاج حقيقي', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر للمتابعة',
       },
       {
         id: 'reveal',
-        kicker: 'الفصل ٠٥',
         title: 'سمعت هذا؟',
         title2: 'هذه لايك.',
         copy: 'قشرة مقرمشة، بخار يتصاعد، وعصارة بالداخل.',
+        sideLabel: ['قرمشة', 'تسمعها', 'فعلاً', 'بأذنك'],
+        script: 'نفس الحب. واقع أقرمش.',
+        badge: { top: 'دجاج حقيقي', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر للمتابعة',
       },
       {
         id: 'drop',
-        kicker: 'الفصل ٠٦',
         title: 'صُنعت لتكون قرمشة.',
-        copy: 'اطلب وجبة لايك، طازجة من المقلاة إلى بابك.',
+        copy: 'دجاج حقيقي. ناس أسعد.',
         cta: 'اطلب لايك الآن',
         cta2: 'استكشف القائمة',
+        sideLabel: ['الدجاج', 'يجمع', 'الناس', 'أكثر'],
+        script: 'نفس الحب. واقع أقرمش.',
+        badge: { top: 'دجاج حقيقي', bottom: 'ناس أسعد' },
+        scrollLabel: 'مرّر إلى القائمة',
       },
     ],
     menu: {

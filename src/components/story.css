@@ -21,10 +21,11 @@
 .story-hero,
 .story-chapter {
   position: absolute;
-  inset-inline-start: 6vw;
-  top: 50%;
-  transform: translateY(0);
-  max-width: min(560px, 86vw);
+  inset-inline-start: 50%;
+  top: 64%;
+  translate: -50% -50%;
+  text-align: center;
+  max-width: min(620px, 88vw);
   color: var(--ink);
   will-change: opacity, transform;
 }
@@ -40,12 +41,13 @@
 }
 
 .story-hero-title {
+  font-family: var(--font-heading);
   font-size: clamp(2.6rem, 8vw, 6rem);
   font-weight: 800;
   line-height: 0.98;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin-block: 0.3em 0.35em;
-  color: var(--ink);
+  color: var(--red);
 }
 
 .story-hero-sub {
@@ -55,16 +57,14 @@
   margin-inline: auto;
 }
 
-.story-chapter {
-  translate: 0 -50%;
-}
-
 .story-chapter-title {
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 5.4vw, 3.6rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.01em;
   margin-bottom: 0.4em;
+  color: var(--red);
 }
 
 .story-chapter-title--2 {
@@ -108,61 +108,38 @@
   color: var(--ink);
 }
 
-/* per-chapter placement + color for contrast against the 3D backdrop */
-.story-chapter--chicken {
-  color: var(--ink);
-}
-
-.story-chapter--marinade {
-  inset-inline-start: auto;
-  inset-inline-end: 6vw;
-  text-align: end;
-  color: var(--cream);
-}
-
-.story-chapter--coating {
-  color: var(--ink);
-}
-
-.story-chapter--fryer {
-  inset-inline-start: 50%;
-  translate: -50% -50%;
-  text-align: center;
-  color: var(--cream);
-  top: 62%;
-}
-
+/* dark-background chapters need cream text for contrast against the 3D backdrop */
+.story-chapter--marinade,
+.story-chapter--fryer,
 .story-chapter--reveal {
-  inset-inline-start: 50%;
-  translate: -50% -50%;
-  text-align: center;
   color: var(--cream);
-  max-width: min(680px, 90vw);
+}
+
+.story-chapter--marinade .story-chapter-title,
+.story-chapter--fryer .story-chapter-title,
+.story-chapter--reveal .story-chapter-title {
+  color: var(--cream);
 }
 
 .story-chapter--reveal .story-chapter-title {
   font-size: clamp(2.4rem, 7vw, 4.6rem);
 }
 
+/* the meal assembly sits lower on screen in this chapter, so keep text clear of it */
 .story-chapter--drop {
-  inset-inline-start: 50%;
-  translate: -50% -50%;
-  text-align: center;
-  top: 68%;
-  color: var(--ink);
-  max-width: min(620px, 90vw);
+  top: 30%;
 }
 
 .story-hint {
   position: absolute;
-  bottom: 5vh;
+  bottom: 4vh;
   inset-inline-start: 50%;
   translate: -50% 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4em;
+  gap: 0.6em;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -170,22 +147,176 @@
   pointer-events: none;
 }
 
-.story-hint-arrow {
-  animation: story-bob 1.8s ease-in-out infinite;
-  font-size: 1.1rem;
+.story-hint-mouse {
+  width: 22px;
+  height: 34px;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+  opacity: 0.85;
+}
+
+.story-hint-dot {
+  width: 4px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: story-bob 1.6s ease-in-out infinite;
+}
+
+.story-hint-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
 }
 
 @keyframes story-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(8px); opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* scroll progress: dots + counter */
+.story-progress {
+  position: absolute;
+  bottom: 4vh;
+  inset-inline-end: 6vw;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--ink);
+  pointer-events: none;
+}
+
+.story-progress-dots {
+  display: flex;
+  gap: 0.4em;
+}
+
+.story-progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.story-progress-dot.is-active {
+  opacity: 1;
+  transform: scale(1.35);
+}
+
+.story-progress-counter {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+/* left margin caption */
+.story-side-label {
+  position: absolute;
+  inset-inline-start: 6vw;
+  top: 24%;
+  z-index: 2;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--ink);
+  pointer-events: none;
+}
+
+.story-side-label span {
+  display: block;
+}
+
+.story-side-label-rule {
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: currentColor;
+  opacity: 0.5;
+  margin-top: 0.6em;
+}
+
+/* right margin handwritten accent */
+.story-script {
+  position: absolute;
+  inset-inline-end: 6vw;
+  top: 20%;
+  z-index: 2;
+  max-width: 220px;
+  font-family: var(--font-script);
+  font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--red);
+  text-align: end;
+  pointer-events: none;
+}
+
+/* circular stamp badge */
+.story-badge {
+  position: absolute;
+  inset-inline-end: 4vw;
+  top: 46%;
+  z-index: 2;
+  width: 148px;
+  height: 148px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.story-badge-inner {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+.story-badge-heart {
+  display: block;
+  margin: 0.15em auto;
+  opacity: 0.7;
+}
+
+/* dark-background chapters need light-colored accents */
+.story-script--marinade,
+.story-script--fryer,
+.story-script--reveal {
+  color: var(--gold-2);
+}
+
+.story-side-label--marinade,
+.story-side-label--fryer,
+.story-side-label--reveal,
+.story-badge--marinade,
+.story-badge--fryer,
+.story-badge--reveal {
+  color: var(--cream);
 }
 
 @media (max-width: 820px) {
   .story-hero-title { font-size: clamp(2.2rem, 11vw, 3.4rem); }
   .story-chapter-title { font-size: clamp(1.7rem, 8vw, 2.4rem); }
-  .story-chapter, .story-hero { inset-inline-start: 6vw; max-width: 88vw; }
-  .story-chapter--marinade { inset-inline-start: 6vw; inset-inline-end: auto; text-align: start; }
-  .story-chapter--fryer, .story-chapter--reveal, .story-chapter--drop {
-    inset-inline-start: 6vw; translate: 0 -50%; text-align: start; max-width: 88vw;
+  .story-chapter--reveal .story-chapter-title { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+  .story-chapter, .story-hero { max-width: 90vw; }
+  .story-side-label, .story-script, .story-badge, .story-progress {
+    display: none;
   }
 }

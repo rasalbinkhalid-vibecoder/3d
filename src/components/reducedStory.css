@@ -9,8 +9,10 @@
 }
 
 .rstory-hero-title {
+  font-family: var(--font-heading);
   font-size: clamp(2.4rem, 7vw, 4.5rem);
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--red);
   line-height: 1;
   margin-block: 0.3em 0.3em;
 }
@@ -43,8 +45,10 @@
 }
 
 .rstory-title {
+  font-family: var(--font-heading);
   font-size: clamp(1.5rem, 3.6vw, 2.2rem);
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--red);
   line-height: 1.05;
   margin-bottom: 0.3em;
 }

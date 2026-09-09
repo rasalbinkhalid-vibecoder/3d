@@ -56,8 +56,12 @@ export function BrandMoment() {
   return (
     <section ref={sectionRef} className="brand-moment">
       <div ref={iconRef} className="brand-moment-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64">
-          <path d="M32 14c9 0 15 6.5 15 14.5 0 3-1 5.6-2.7 7.8 1.6.6 2.9 2.1 2.9 4.3 0 3.3-3 5.4-6.4 5.4-1.7 0-3.2-.6-4.3-1.6-1.4.7-3 .1-3-1.6h-3c0 1.7-1.6 2.3-3 1.6-1.1 1-2.6 1.6-4.3 1.6-3.4 0-6.4-2.1-6.4-5.4 0-2.2 1.3-3.7 2.9-4.3C18 34.1 17 31.5 17 28.5 17 20.5 23 14 32 14z" />
+        <svg viewBox="0 0 40 40">
+          <circle cx="13" cy="8.5" r="4" />
+          <circle cx="19.5" cy="5.5" r="4.6" />
+          <circle cx="26" cy="8.5" r="4" />
+          <path d="M29 16.5l7.5 3.5-7.5 3.5z" />
+          <rect x="5.5" y="10.5" width="27" height="24" rx="13" />
         </svg>
       </div>
       <div className="brand-moment-rows">

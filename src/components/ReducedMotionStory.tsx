@@ -4,9 +4,16 @@ import './reducedStory.css'
 
 const STAGE_COLORS = ['#e8a99b', '#c25a3a', '#e9d3ab', '#e8a53f', '#9a4c17', '#7a3d10']
 
-function RevealRow({ index, kicker, title, title2, copy, tags, cta, cta2 }: {
+function RevealRow({
+  index,
+  title,
+  title2,
+  copy,
+  tags,
+  cta,
+  cta2,
+}: {
   index: number
-  kicker: string
   title: string
   title2?: string
   copy: string
@@ -19,7 +26,6 @@ function RevealRow({ index, kicker, title, title2, copy, tags, cta, cta2 }: {
     <div ref={ref} className={`rstory-row ${inView ? 'is-visible' : ''}`}>
       <div className="rstory-badge" style={{ background: STAGE_COLORS[index % STAGE_COLORS.length] }} aria-hidden="true" />
       <div>
-        <p className="eyebrow">{kicker}</p>
         <h2 className="rstory-title">{title}</h2>
         {title2 ? <h2 className="rstory-title">{title2}</h2> : null}
         <p className="rstory-copy">{copy}</p>
@@ -54,7 +60,6 @@ export function ReducedMotionStory() {
     <section className="rstory" aria-label="The making of LIKE fried chicken">
       <p className="visually-hidden">{t.reducedMotionNote}</p>
       <div className="container rstory-hero">
-        <p className="eyebrow">{t.hero.eyebrow}</p>
         <h1 className="rstory-hero-title">{t.hero.title}</h1>
         <p className="story-hero-sub">{t.hero.sub}</p>
       </div>
@@ -63,13 +68,12 @@ export function ReducedMotionStory() {
           <RevealRow
             key={c.id}
             index={i}
-            kicker={c.kicker}
             title={c.title}
-            title2={'title2' in c ? c.title2 : undefined}
+            title2={c.title2}
             copy={c.copy}
-            tags={'tags' in c ? c.tags : undefined}
-            cta={'cta' in c ? c.cta : undefined}
-            cta2={'cta2' in c ? c.cta2 : undefined}
+            tags={c.tags}
+            cta={c.cta}
+            cta2={c.cta2}
           />
         ))}
       </div>

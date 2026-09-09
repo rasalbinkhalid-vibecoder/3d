@@ -14,6 +14,8 @@
 
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display-ar: 'Cairo', system-ui, sans-serif;
+  --font-heading: 'Baloo 2', 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-script: 'Caveat', cursive;
 
   --container: min(1240px, 92vw);
   --radius-lg: 32px;

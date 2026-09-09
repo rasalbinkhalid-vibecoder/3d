@@ -76,7 +76,7 @@ export function FinalCta() {
           {t.finalCta.button} →
         </a>
 
-        <div className="final-cta-links">
+        <div id="locations" className="final-cta-links">
           <a href="#" className="final-cta-link">
             {t.finalCta.locations}
           </a>
