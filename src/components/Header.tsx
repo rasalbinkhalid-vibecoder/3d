@@ -1,54 +1,69 @@
-import { useLanguage } from '../i18n/LanguageContext'
+import { useEffect, useState } from 'react'
+import { content } from '../content'
 import { LogoMark } from './LogoMark'
 import './header.css'
 
 export function Header() {
-  const { t, lang, setLang } = useLanguage()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <a className="brand-mark" href="#top" aria-label={t.brandName}>
+        <a className="brand-mark" href="#top" aria-label={content.brandName}>
           <LogoMark />
           <span className="brand-mark-text">
-            <span className="brand-mark-name">{t.brandName}</span>
-            <span className="brand-mark-tagline">{t.brandTagline}</span>
+            <span className="brand-mark-name">{content.brandName}</span>
           </span>
         </a>
 
         <nav className="site-nav" aria-label="Primary">
-          <a href="#menu">{t.nav.menu}</a>
-          <a href="#top">{t.nav.story}</a>
-          <a href="#locations">{t.nav.locations}</a>
+          <a href="#menu">{content.nav.menu}</a>
+          <a href="#top">{content.nav.story}</a>
+          <a href="#locations">{content.nav.locations}</a>
         </nav>
 
         <div className="site-header-actions">
-          <button type="button" className="icon-btn" aria-label="Search">
-            <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-              <circle cx="9" cy="9" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
-              <line x1="14" y1="14" x2="18.5" y2="18.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
-          </button>
-
-          <span className="header-divider" aria-hidden="true" />
-
+          <span className="lang-chip">EN</span>
+          <a href="#order" className="btn btn-primary site-order-btn">
+            {content.nav.order}
+          </a>
           <button
             type="button"
-            className="lang-toggle"
-            onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-            aria-label="Toggle language"
+            className="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((v) => !v)}
           >
-            {lang === 'en' ? 'EN' : 'ع'}
-            <svg viewBox="0 0 12 8" width="10" height="7" aria-hidden="true">
-              <path d="M1 1.5L6 6.5L11 1.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span />
+            <span />
+            <span />
           </button>
-
-          <a href="#order" className="btn btn-primary site-order-btn">
-            {t.nav.order}
-            <span aria-hidden="true">→</span>
-          </a>
         </div>
+      </div>
+
+      <div id="mobile-menu" className={`mobile-menu${menuOpen ? ' is-open' : ''}`}>
+        <a href="#menu" onClick={() => setMenuOpen(false)}>
+          {content.nav.menu}
+        </a>
+        <a href="#top" onClick={() => setMenuOpen(false)}>
+          {content.nav.story}
+        </a>
+        <a href="#locations" onClick={() => setMenuOpen(false)}>
+          {content.nav.locations}
+        </a>
+        <a href="#order" className="btn btn-primary mobile-menu-cta" onClick={() => setMenuOpen(false)}>
+          {content.nav.order}
+        </a>
       </div>
     </header>
   )

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useStoryStore } from '../store/storyStore'
+import { useProgressStore } from '../store/progressStore'
 
 interface MenuCardProps {
   name: string
@@ -32,7 +32,7 @@ const ICONS: Record<MenuCardProps['icon'], JSX.Element> = {
 
 export function MenuCard({ name, desc, price, accent, icon }: MenuCardProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const reducedMotion = useStoryStore((s) => s.reducedMotion)
+  const reducedMotion = useProgressStore((s) => s.reducedMotion)
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reducedMotion || !ref.current) return

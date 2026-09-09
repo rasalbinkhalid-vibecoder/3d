@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-import { useStoryStore } from '../store/storyStore'
+import { useProgressStore } from '../store/progressStore'
 
 export function useMediaFlags() {
-  const setReducedMotion = useStoryStore((s) => s.setReducedMotion)
-  const setIsMobile = useStoryStore((s) => s.setIsMobile)
+  const setReducedMotion = useProgressStore((s) => s.setReducedMotion)
+  const setIsMobile = useProgressStore((s) => s.setIsMobile)
 
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const mobileQuery = window.matchMedia('(max-width: 820px)')
+    const mobileQuery = window.matchMedia('(max-width: 767px)')
 
     const applyMotion = () => setReducedMotion(motionQuery.matches)
     const applyMobile = () => setIsMobile(mobileQuery.matches)

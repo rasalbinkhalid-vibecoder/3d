@@ -1,0 +1,33 @@
+/*
+ * Cross-cutting responsive rules. Most breakpoint-specific layout lives next
+ * to the component it affects (see components/*.css and three/keyframes.ts
+ * for the mobile camera framing) — this file holds the handful of rules that
+ * apply across the whole page.
+ */
+
+/* comfortable, unambiguous tap targets on touch devices */
+@media (max-width: 767px) {
+  .btn,
+  .menu-toggle,
+  .icon-btn,
+  .lang-toggle {
+    min-height: 44px;
+  }
+
+  .container {
+    width: min(100%, 92vw);
+  }
+}
+
+/* tablet: a touch more breathing room than phone, a touch less than desktop */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    width: min(720px, 92vw);
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    width: min(1360px, 88vw);
+  }
+}

@@ -1,0 +1,183 @@
+.scroll-experience {
+  position: relative;
+  z-index: 1;
+}
+
+.chapter {
+  position: relative;
+}
+
+.chapter--intro { min-height: 108vh; }
+.chapter--fresh { min-height: 117vh; }
+.chapter--marinade { min-height: 135vh; }
+.chapter--coating { min-height: 135vh; }
+.chapter--frying { min-height: 153vh; }
+.chapter--reveal { min-height: 126vh; }
+.chapter--meal { min-height: 126vh; }
+
+/*
+ * The 3D hero is a fixed-position canvas, not a scrolling element. Each
+ * chapter section is taller than one viewport (it exists to provide scroll
+ * distance for the 3D timeline), so its text is pinned to the viewport via
+ * `sticky` for the section's whole duration — otherwise the text would drift
+ * away from the object after the first screenful, exactly the bug this
+ * fixes: text sliding out of sync with (and overlapping) the fixed chicken.
+ */
+.chapter-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-block: calc(6rem + 1.5vh) 8vh;
+  padding-inline: clamp(1.25rem, 6vw, 4rem);
+}
+
+.chapter-top,
+.chapter-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.chapter-top { align-items: flex-start; }
+.chapter-bottom { align-items: flex-end; }
+
+.reveal-block {
+  max-width: 640px;
+  text-align: center;
+  color: var(--ink);
+}
+
+.hero-copy-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 0.98;
+  color: var(--red);
+}
+
+.chapter-sub {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--ink-soft);
+  max-width: 34ch;
+  margin-inline: auto 0;
+}
+
+.scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 1.2em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+}
+
+.chapter-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 0.7em;
+  color: var(--ink);
+}
+
+.chapter-kicker--light {
+  color: var(--cream);
+}
+
+.chapter-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5.4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.04;
+  color: var(--red);
+}
+
+.chapter-title--light {
+  color: var(--cream);
+}
+
+.chapter-copy {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: var(--ink-soft);
+  max-width: 32ch;
+  margin-inline: auto;
+}
+
+.chapter-copy--light {
+  color: rgba(255, 245, 232, 0.85);
+}
+
+.chapter-copy-arabic {
+  margin-top: 0.5em;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.chapter-callouts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  list-style: none;
+  padding: 0;
+  margin-top: 1.3em;
+}
+
+.chapter-callouts li {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.5em 0.9em;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  color: var(--ink);
+  opacity: 0.8;
+}
+
+.chapter-callouts--light li {
+  color: var(--cream);
+}
+
+.order-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9em;
+  margin-top: 1.6em;
+}
+
+.reveal-heading-stack {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin-inline: auto;
+  min-height: 3.2em;
+}
+
+.reveal-line-1,
+.reveal-line-2 {
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue span[aria-hidden] {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 767px) {
+  .chapter {
+    padding-block: calc(5rem + 1.5vh) 6vh;
+  }
+  .chapter-title { font-size: clamp(2.2rem, 8.5vw, 2.6rem); }
+  .hero-copy-title { font-size: clamp(2.75rem, 12vw, 3.4rem); }
+  .chapter-callouts { gap: 0.4em; }
+  .chapter-callouts li { font-size: 0.66rem; padding: 0.45em 0.75em; }
+}

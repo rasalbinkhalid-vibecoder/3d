@@ -4,28 +4,29 @@ export interface CamKey {
   fov: number
 }
 
-// index 0..6 correspond to act starts: hero, chicken, marinade, coating, fryer, reveal, drop
-// index 7 is the "drop" chapter end / handoff to the menu section
+// stops align with CHAPTERS boundaries: 0, 12, 25, 40, 55, 72, 86, 100
 export const CAMERA_KEYS: CamKey[] = [
-  { pos: [0, 0.05, 6.4], look: [0, 0, 0], fov: 32 }, // 0 hero start
-  { pos: [0, 0, 4.5], look: [0, 0, 0], fov: 32 }, // 1 chicken
-  { pos: [0.65, 0.2, 3.65], look: [0, 0.05, 0], fov: 30 }, // 2 marinade
-  { pos: [-0.3, 0.15, 2.5], look: [0, 0.05, 0], fov: 28 }, // 3 coating (macro)
-  { pos: [0.1, -0.35, 2.9], look: [0, -0.55, 0], fov: 34 }, // 4 fryer dive
-  { pos: [0.35, 0.35, 3.3], look: [0, 0, 0], fov: 30 }, // 5 reveal
-  { pos: [0, 0.35, 5.6], look: [0, -0.25, 0], fov: 32 }, // 6 drop / assembly
-  { pos: [0, 0.55, 7.4], look: [0, -0.2, 0], fov: 34 }, // 7 handoff
+  { pos: [0, 0.05, 6.4], look: [0, 0, 0], fov: 32 }, // 0   intro start: hero object at rest
+  { pos: [0, 0, 4.6], look: [0, 0, 0], fov: 32 }, // 12  end of intro dolly-forward
+  { pos: [0.5, 0.15, 4.0], look: [0, 0.1, 0], fov: 30 }, // 25  fresh: gentle orbital move
+  { pos: [-0.3, 0.1, 3.6], look: [0, 0.1, 0], fov: 34 }, // 40  marinade: closer macro framing (whole leg stays in frame)
+  { pos: [0.15, -0.2, 3.0], look: [0, -0.15, 0], fov: 42 }, // 55  coating: camera slightly below, wide macro push
+  { pos: [0.1, -0.4, 3.1], look: [0, -0.4, 0], fov: 42 }, // 72  frying: camera follows the chicken down
+  { pos: [0.4, 0.2, 2.9], look: [0, 0.05, 0], fov: 42 }, // 86  reveal: close but still whole, dramatic orbit
+  { pos: [0, 0.1, 8.2], look: [0, -0.6, 0], fov: 34 }, // 100 meal: camera pulls back to fit chicken + box + fries
 ]
 
+export const CAMERA_STOPS = [0, 12, 25, 40, 55, 72, 86, 100]
+
 export const BG_KEYS: string[] = [
-  '#fbf3e6', // hero
-  '#fbf3e6', // chicken
-  '#c23a1d', // marinade
-  '#f4e6cf', // coating
-  '#1b1310', // fryer
-  '#241a15', // reveal
-  '#fbf3e6', // drop
-  '#fbf3e6', // handoff
+  '#fff5e8', // intro
+  '#fff5e8', // fresh
+  '#e41436', // marinade
+  '#fff8f0', // coating (high-key)
+  '#1c1008', // frying
+  '#140907', // reveal
+  '#fff5e8', // meal
+  '#fff5e8', // handoff
 ]
 
 function smoothstep(t: number) {
@@ -33,17 +34,24 @@ function smoothstep(t: number) {
   return c * c * (3 - 2 * c)
 }
 
-export function sampleKeys<T extends { pos: number[]; look: number[]; fov: number }>(
-  keys: T[],
-  playhead: number,
-) {
-  const clamped = Math.min(Math.max(playhead, 0), keys.length - 1)
-  const i0 = Math.min(Math.floor(clamped), keys.length - 2)
-  const i1 = i0 + 1
-  const t = smoothstep(clamped - i0)
+function locate(progress: number) {
+  const clamped = Math.min(Math.max(progress, 0), 100)
+  let i0 = CAMERA_STOPS.length - 2
+  for (let i = 0; i < CAMERA_STOPS.length - 1; i++) {
+    if (clamped >= CAMERA_STOPS[i] && clamped <= CAMERA_STOPS[i + 1]) {
+      i0 = i
+      break
+    }
+  }
+  const span = CAMERA_STOPS[i0 + 1] - CAMERA_STOPS[i0] || 1
+  const t = smoothstep((clamped - CAMERA_STOPS[i0]) / span)
+  return { i0, t }
+}
 
+export function sampleKeys(keys: CamKey[], progress: number) {
+  const { i0, t } = locate(progress)
   const a = keys[i0]
-  const b = keys[i1]
+  const b = keys[i0 + 1]
 
   const lerp3 = (u: number[], v: number[]): [number, number, number] => [
     u[0] + (v[0] - u[0]) * t,
@@ -58,9 +66,7 @@ export function sampleKeys<T extends { pos: number[]; look: number[]; fov: numbe
   }
 }
 
-export function sampleColor(colors: string[], playhead: number) {
-  const clamped = Math.min(Math.max(playhead, 0), colors.length - 1)
-  const i0 = Math.min(Math.floor(clamped), colors.length - 2)
-  const t = smoothstep(clamped - i0)
+export function sampleColor(colors: string[], progress: number) {
+  const { i0, t } = locate(progress)
   return { i0, t }
 }

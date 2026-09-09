@@ -1,12 +1,13 @@
-import { useLanguage } from '../i18n/LanguageContext'
+import { content } from '../content'
 import './footer.css'
 
 export function Footer() {
-  const { t } = useLanguage()
   return (
-    <footer className="site-footer">
+    <footer id="locations" className="site-footer">
       <div className="container site-footer-inner">
-        <span>{t.brandName}</span>
+        <span>{content.brandName}</span>
+        <span className="site-footer-locations">{content.footer.locations}</span>
+        <span>{content.footer.follow}</span>
         <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>

@@ -1,21 +1,20 @@
 :root {
-  --cream: #fbf3e6;
-  --cream-2: #f4e6cf;
-  --charcoal: #1b1310;
+  --cream: #fff5e8;
+  --cream-2: #f7e9d3;
+  --charcoal: #140907;
   --charcoal-2: #241a15;
-  --red: #e1361c;
-  --red-deep: #b8230f;
-  --orange: #f3893a;
+  --red: #e41436;
+  --red-deep: #b8102b;
+  --orange: #f7692f;
   --gold: #f0b23c;
   --gold-2: #ffd980;
   --ink: #241712;
   --ink-soft: rgba(36, 23, 18, 0.66);
-  --cream-soft: rgba(251, 243, 230, 0.78);
+  --cream-soft: rgba(255, 245, 232, 0.78);
 
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display-ar: 'Cairo', system-ui, sans-serif;
   --font-heading: 'Baloo 2', 'Cairo', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-script: 'Caveat', cursive;
 
   --container: min(1240px, 92vw);
   --radius-lg: 32px;
@@ -32,10 +31,6 @@ html {
   background: var(--cream);
 }
 
-html[dir='rtl'] body {
-  font-family: var(--font-display-ar), var(--font-display);
-}
-
 body {
   margin: 0;
   background: var(--cream);
@@ -43,6 +38,10 @@ body {
   font-family: var(--font-display), sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+[lang='ar'] {
+  font-family: var(--font-display-ar), var(--font-display);
 }
 
 h1, h2, h3, p {
@@ -76,10 +75,6 @@ img, canvas {
   opacity: 0.7;
 }
 
-html[dir='rtl'] .eyebrow {
-  letter-spacing: 0;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -95,15 +90,20 @@ html[dir='rtl'] .eyebrow {
   transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), background 0.3s ease;
 }
 
+.btn:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
 .btn-primary {
   background: var(--red);
   color: var(--cream);
-  box-shadow: 0 14px 30px -10px rgba(225, 54, 28, 0.65);
+  box-shadow: 0 14px 30px -10px rgba(228, 20, 54, 0.65);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 40px -12px rgba(225, 54, 28, 0.75);
+  box-shadow: 0 20px 40px -12px rgba(228, 20, 54, 0.75);
 }
 
 .btn-ghost {
@@ -115,6 +115,12 @@ html[dir='rtl'] .eyebrow {
 .btn-ghost:hover {
   background: currentColor;
   color: var(--charcoal);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
 }
 
 ::selection {
@@ -134,5 +140,13 @@ html[dir='rtl'] .eyebrow {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
