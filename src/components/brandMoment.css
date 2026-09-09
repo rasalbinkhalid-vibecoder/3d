@@ -1,0 +1,59 @@
+.brand-moment {
+  position: relative;
+  background: var(--red);
+  color: var(--cream);
+  overflow: hidden;
+  padding-block: 14vh;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.brand-moment-icon {
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(70vw, 900px);
+  height: min(70vw, 900px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.brand-moment-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--cream);
+}
+
+.brand-moment-rows {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+}
+
+.brand-moment-row {
+  display: flex;
+  gap: 3vw;
+  white-space: nowrap;
+  font-size: clamp(3.2rem, 12vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.brand-moment-row--outline span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--cream);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-moment-row {
+    flex-wrap: wrap;
+  }
+  .brand-moment-row span:nth-child(n + 2) {
+    display: none;
+  }
+}
